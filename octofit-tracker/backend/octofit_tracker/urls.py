@@ -57,6 +57,7 @@ leaderboard_list = _component_list_view('leaderboard')
 users_list = _component_list_view('users')
 
 urlpatterns = [
+    path('', api_root, name='root'),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/activities/', activities_list, name='activities-list'),
