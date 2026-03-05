@@ -30,9 +30,21 @@ DEBUG = True
 
 
 # Allow localhost + Codespaces forwarded-port host
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-if os.environ.get('CODESPACE_NAME'):
-    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
+codespace_name = os.environ.get('CODESPACE_NAME')
+codespace_host = f"{codespace_name}-8000.app.github.dev" if codespace_name else None
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+if codespace_host:
+    ALLOWED_HOSTS.append(codespace_host)
+
+# Treat Codespaces forwarded-port requests as HTTPS (TLS is terminated at the proxy)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+# Required for POSTs/CSRF-protected endpoints when accessed via the Codespace URL
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+if codespace_host:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{codespace_host}")
 
 
 # Application definition
