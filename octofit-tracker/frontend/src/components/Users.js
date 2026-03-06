@@ -28,7 +28,24 @@ export default function Users() {
 
       try {
         const response = await fetch(endpoint);
-        const data = await response.json();
+        console.log('[Users] Response:', { status: response.status, statusText: response.statusText, ok: response.ok });
+
+        if (!response.ok) {
+          const bodyText = await response.text().catch(() => '');
+          throw new Error(
+            `HTTP ${response.status} ${response.statusText}${bodyText ? ` - ${bodyText.slice(0, 200)}` : ''}`
+          );
+        }
+
+        let data;
+        try {
+          data = await response.json();
+        } catch (jsonErr) {
+          const bodyText = await response.text().catch(() => '');
+          throw new Error(
+            `Failed to parse JSON response${bodyText ? ` - ${bodyText.slice(0, 200)}` : ''}`
+          );
+        }
 
         console.log('[Users] Fetched data:', data);
 
@@ -59,7 +76,11 @@ export default function Users() {
         Endpoint: <code>{endpoint}</code>
       </p>
 
-      {error ? <div className="alert alert-danger">Failed to load users.</div> : null}
+      {error ? (
+        <div className="alert alert-danger">
+          Failed to load users: <code>{String(error?.message ?? error)}</code>
+        </div>
+      ) : null}
 
       {users.length === 0 ? (
         <div className="alert alert-secondary">No users found.</div>

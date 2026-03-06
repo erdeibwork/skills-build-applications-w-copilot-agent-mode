@@ -17,10 +17,13 @@ Including another URLconf
 import os
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.routers import DefaultRouter
+
+from .views import ActivityViewSet, LeaderboardViewSet, TeamViewSet, UserViewSet, WorkoutViewSet
 
 
 codespace_name = os.environ.get('CODESPACE_NAME')
@@ -42,27 +45,16 @@ def api_root(request):
     )
 
 
-def _component_list_view(component_name: str):
-    @api_view(['GET'])
-    def _view(request):
-        return Response({'url': f"{codespace_base_url}/api/{component_name}/", 'results': []})
-
-    return _view
-
-
-activities_list = _component_list_view('activities')
-teams_list = _component_list_view('teams')
-workouts_list = _component_list_view('workouts')
-leaderboard_list = _component_list_view('leaderboard')
-users_list = _component_list_view('users')
+router = DefaultRouter()
+router.register(r'activities', ActivityViewSet, basename='activity')
+router.register(r'teams', TeamViewSet, basename='team')
+router.register(r'workouts', WorkoutViewSet, basename='workout')
+router.register(r'leaderboard', LeaderboardViewSet, basename='leaderboard')
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
     path('', api_root, name='root'),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
-    path('api/activities/', activities_list, name='activities-list'),
-    path('api/teams/', teams_list, name='teams-list'),
-    path('api/workouts/', workouts_list, name='workouts-list'),
-    path('api/leaderboard/', leaderboard_list, name='leaderboard-list'),
-    path('api/users/', users_list, name='users-list'),
+    path('api/', include(router.urls)),
 ]
