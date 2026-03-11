@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-function deriveCodespaceNameFromHostname() {
-  const hostname = window?.location?.hostname;
-  const codespacesSuffix = '-3000.app.github.dev';
+import { buildApiEndpoint, getApiOrigin, getCodespaceName } from '../api';
 
-  if (hostname && hostname.endsWith(codespacesSuffix)) {
-    return hostname.slice(0, -codespacesSuffix.length);
-  }
-
-  return null;
-}
-
-const codespaceName = process.env.REACT_APP_CODESPACE_NAME || deriveCodespaceNameFromHostname();
-const apiOrigin = codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
-
-const endpoint = `${apiOrigin}/api/leaderboard/`;
+const endpoint = buildApiEndpoint('leaderboard');
 
 export default function Leaderboard() {
   const [entries, setEntries] = useState([]);
@@ -24,6 +12,8 @@ export default function Leaderboard() {
     let cancelled = false;
 
     async function load() {
+      console.log('[Leaderboard] Codespace name:', getCodespaceName());
+      console.log('[Leaderboard] API origin:', getApiOrigin());
       console.log('[Leaderboard] Fetching from endpoint:', endpoint);
 
       try {
