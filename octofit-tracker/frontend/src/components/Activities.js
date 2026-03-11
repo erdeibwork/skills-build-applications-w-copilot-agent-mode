@@ -60,29 +60,71 @@ export default function Activities() {
   }, []);
 
   return (
-    <div>
-      <h2>Activities</h2>
-      <p className="text-muted mb-3">
-        Endpoint: <code>{endpoint}</code>
-      </p>
-
-      {error ? (
-        <div className="alert alert-danger">
-          Failed to load activities: <code>{String(error?.message ?? error)}</code>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+          <h2 className="h4 mb-0">Activities</h2>
+          <small className="text-muted">
+            Endpoint:{' '}
+            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+              {endpoint}
+            </a>
+          </small>
         </div>
-      ) : null}
 
-      {activities.length === 0 ? (
-        <div className="alert alert-secondary">No activities found.</div>
-      ) : (
-        <ul className="list-group">
-          {activities.map((activity, idx) => (
-            <li key={activity?.id ?? idx} className="list-group-item">
-              <pre className="mb-0">{JSON.stringify(activity, null, 2)}</pre>
-            </li>
-          ))}
-        </ul>
-      )}
+        {error ? (
+          <div className="alert alert-danger mb-3">
+            Failed to load activities: <code>{String(error?.message ?? error)}</code>
+          </div>
+        ) : null}
+
+        {activities.length === 0 ? (
+          <div className="alert alert-secondary mb-0">No activities found.</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped table-hover align-middle mb-0">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col" style={{ width: '6rem' }}>
+                    ID
+                  </th>
+                  <th scope="col">User</th>
+                  <th scope="col">Team</th>
+                  <th scope="col">Type</th>
+                  <th scope="col" className="text-end">
+                    Duration (min)
+                  </th>
+                  <th scope="col" className="text-end">
+                    Distance (km)
+                  </th>
+                  <th scope="col">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                {activities.map((activity, idx) => {
+                  const user = activity?.user;
+                  const teamName = user?.team?.name ?? '—';
+                  const timestamp = activity?.timestamp
+                    ? new Date(activity.timestamp).toLocaleString()
+                    : '—';
+
+                  return (
+                    <tr key={activity?.id ?? idx}>
+                      <td>{activity?.id ?? '—'}</td>
+                      <td>{user?.username ?? '—'}</td>
+                      <td>{teamName}</td>
+                      <td>{activity?.type ?? '—'}</td>
+                      <td className="text-end">{activity?.duration ?? '—'}</td>
+                      <td className="text-end">{activity?.distance ?? '—'}</td>
+                      <td>{timestamp}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

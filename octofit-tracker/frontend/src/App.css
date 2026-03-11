@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
+:root {
+  /* Bootstrap-driven theme tweaks (no custom palette needed) */
+  --octofit-surface: var(--bs-body-bg);
+  --octofit-accent-soft: rgba(var(--bs-primary-rgb), 0.08);
+  --octofit-border: rgba(var(--bs-dark-rgb), 0.12);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  color: var(--bs-body-color);
+  background-color: var(--bs-gray-100);
+  background-image:
+    radial-gradient(900px circle at 12% -10%, var(--octofit-accent-soft), transparent 55%),
+    radial-gradient(700px circle at 95% 0%, rgba(var(--bs-info-rgb), 0.08), transparent 55%);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: rgb(var(--bs-dark-rgb));
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Links */
+a {
+  text-underline-offset: 0.15em;
 }
 
-.App-link {
-  color: #61dafb;
+a:hover {
+  text-decoration-thickness: 2px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Navigation */
+.navbar.bg-dark {
+  background-color: rgb(var(--bs-dark-rgb)) !important;
+  border-bottom: 1px solid rgba(var(--bs-light-rgb), 0.08);
+}
+
+.navbar .navbar-brand {
+  letter-spacing: 0.2px;
+}
+
+.navbar .nav-link {
+  border-radius: 0.375rem;
+  margin-right: 0.25rem;
+}
+
+.navbar .nav-link:hover {
+  background-color: rgba(var(--bs-light-rgb), 0.08);
+}
+
+.navbar .nav-link.active {
+  background-color: rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Cards */
+.card {
+  border-color: var(--octofit-border);
+}
+
+.card.shadow-sm {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Tables */
+.table {
+  --bs-table-striped-bg: rgba(var(--bs-primary-rgb), 0.04);
+  --bs-table-hover-bg: rgba(var(--bs-primary-rgb), 0.06);
+}
+
+.table thead.table-dark {
+  --bs-table-bg: rgb(var(--bs-dark-rgb));
+}
+
+/* Buttons */
+.btn {
+  border-radius: 0.5rem;
+}
+
+.btn-primary {
+  box-shadow: 0 0.25rem 0.6rem rgba(var(--bs-primary-rgb), 0.22);
 }

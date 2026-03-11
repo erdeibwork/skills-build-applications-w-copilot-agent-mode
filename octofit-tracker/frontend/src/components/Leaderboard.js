@@ -60,29 +60,53 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      <p className="text-muted mb-3">
-        Endpoint: <code>{endpoint}</code>
-      </p>
-
-      {error ? (
-        <div className="alert alert-danger">
-          Failed to load leaderboard: <code>{String(error?.message ?? error)}</code>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+          <h2 className="h4 mb-0">Leaderboard</h2>
+          <small className="text-muted">
+            Endpoint:{' '}
+            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+              {endpoint}
+            </a>
+          </small>
         </div>
-      ) : null}
 
-      {entries.length === 0 ? (
-        <div className="alert alert-secondary">No leaderboard entries found.</div>
-      ) : (
-        <ul className="list-group">
-          {entries.map((entry, idx) => (
-            <li key={entry?.id ?? idx} className="list-group-item">
-              <pre className="mb-0">{JSON.stringify(entry, null, 2)}</pre>
-            </li>
-          ))}
-        </ul>
-      )}
+        {error ? (
+          <div className="alert alert-danger mb-3">
+            Failed to load leaderboard: <code>{String(error?.message ?? error)}</code>
+          </div>
+        ) : null}
+
+        {entries.length === 0 ? (
+          <div className="alert alert-secondary mb-0">No leaderboard entries found.</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped table-hover align-middle mb-0">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col" style={{ width: '6rem' }}>
+                    ID
+                  </th>
+                  <th scope="col">Team</th>
+                  <th scope="col" className="text-end">
+                    Points
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {entries.map((entry, idx) => (
+                  <tr key={entry?.id ?? idx}>
+                    <td>{entry?.id ?? '—'}</td>
+                    <td>{entry?.team?.name ?? '—'}</td>
+                    <td className="text-end">{entry?.points ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

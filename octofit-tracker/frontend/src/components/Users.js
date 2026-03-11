@@ -60,29 +60,53 @@ export default function Users() {
   }, []);
 
   return (
-    <div>
-      <h2>Users</h2>
-      <p className="text-muted mb-3">
-        Endpoint: <code>{endpoint}</code>
-      </p>
-
-      {error ? (
-        <div className="alert alert-danger">
-          Failed to load users: <code>{String(error?.message ?? error)}</code>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+          <h2 className="h4 mb-0">Users</h2>
+          <small className="text-muted">
+            Endpoint:{' '}
+            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+              {endpoint}
+            </a>
+          </small>
         </div>
-      ) : null}
 
-      {users.length === 0 ? (
-        <div className="alert alert-secondary">No users found.</div>
-      ) : (
-        <ul className="list-group">
-          {users.map((user, idx) => (
-            <li key={user?.id ?? idx} className="list-group-item">
-              <pre className="mb-0">{JSON.stringify(user, null, 2)}</pre>
-            </li>
-          ))}
-        </ul>
-      )}
+        {error ? (
+          <div className="alert alert-danger mb-3">
+            Failed to load users: <code>{String(error?.message ?? error)}</code>
+          </div>
+        ) : null}
+
+        {users.length === 0 ? (
+          <div className="alert alert-secondary mb-0">No users found.</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped table-hover align-middle mb-0">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col" style={{ width: '6rem' }}>
+                    ID
+                  </th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Team</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, idx) => (
+                  <tr key={user?.id ?? idx}>
+                    <td>{user?.id ?? '—'}</td>
+                    <td>{user?.username ?? '—'}</td>
+                    <td>{user?.email ?? '—'}</td>
+                    <td>{user?.team?.name ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

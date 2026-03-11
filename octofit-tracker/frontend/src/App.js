@@ -6,6 +6,7 @@ import Leaderboard from './components/Leaderboard';
 import Teams from './components/Teams';
 import Users from './components/Users';
 import Workouts from './components/Workouts';
+import octofitLogo from './assets/octofitapp-small.png';
 
 function navLinkClassName({ isActive }) {
   return `nav-link${isActive ? ' active' : ''}`;
@@ -16,7 +17,15 @@ function App() {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container-fluid">
-          <span className="navbar-brand">OctoFit Tracker</span>
+          <NavLink to="/" className="navbar-brand">
+            <img
+              src={octofitLogo}
+              alt="OctoFit"
+              height="28"
+              className="d-inline-block align-text-top me-2"
+            />
+            OctoFit Tracker
+          </NavLink>
           <div className="navbar-nav">
             <NavLink to="/activities" className={navLinkClassName}>
               Activities

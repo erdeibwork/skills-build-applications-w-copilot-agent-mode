@@ -60,29 +60,49 @@ export default function Teams() {
   }, []);
 
   return (
-    <div>
-      <h2>Teams</h2>
-      <p className="text-muted mb-3">
-        Endpoint: <code>{endpoint}</code>
-      </p>
-
-      {error ? (
-        <div className="alert alert-danger">
-          Failed to load teams: <code>{String(error?.message ?? error)}</code>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+          <h2 className="h4 mb-0">Teams</h2>
+          <small className="text-muted">
+            Endpoint:{' '}
+            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+              {endpoint}
+            </a>
+          </small>
         </div>
-      ) : null}
 
-      {teams.length === 0 ? (
-        <div className="alert alert-secondary">No teams found.</div>
-      ) : (
-        <ul className="list-group">
-          {teams.map((team, idx) => (
-            <li key={team?.id ?? idx} className="list-group-item">
-              <pre className="mb-0">{JSON.stringify(team, null, 2)}</pre>
-            </li>
-          ))}
-        </ul>
-      )}
+        {error ? (
+          <div className="alert alert-danger mb-3">
+            Failed to load teams: <code>{String(error?.message ?? error)}</code>
+          </div>
+        ) : null}
+
+        {teams.length === 0 ? (
+          <div className="alert alert-secondary mb-0">No teams found.</div>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-striped table-hover align-middle mb-0">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col" style={{ width: '6rem' }}>
+                    ID
+                  </th>
+                  <th scope="col">Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {teams.map((team, idx) => (
+                  <tr key={team?.id ?? idx}>
+                    <td>{team?.id ?? '—'}</td>
+                    <td>{team?.name ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
