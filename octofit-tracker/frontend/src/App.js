@@ -22,8 +22,7 @@ function App() {
             <img
               src={octofitLogo}
               alt="OctoFit"
-              height="28"
-              className="d-inline-block align-text-top me-2"
+              className="octofit-logo"
             />
             <span className="fw-bold">OctoFit Tracker</span>
           </NavLink>
