@@ -1,14 +1,4 @@
-:root {
-  /* OctoFit custom palette */
-  --octofit-surface: #f5f7fa;
-  --octofit-accent-soft: #e0f0ff;
-  --octofit-border: #b6d0e2;
-  --octofit-primary: #0d6efd;
-  --octofit-secondary: #6c63ff;
-  --octofit-accent: #00bfae;
-  --octofit-dark: #232946;
-  --octofit-light: #f4faff;
-  --octofit-link: #0d6efd;
+
   --octofit-link-hover: #6c63ff;
   --octofit-table-header: #232946;
   --octofit-table-row: #e0f0ff;
@@ -20,18 +10,8 @@
   --octofit-navbar-link: #f4faff;
   --octofit-navbar-link-active: #00bfae;
   --octofit-navbar-link-hover: #e0f0ff;
-}
 
-body {
-  color: var(--octofit-dark);
-  background: linear-gradient(120deg, var(--octofit-surface) 0%, var(--octofit-accent-soft) 100%);
-  min-height: 100vh;
-  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-}
-
-/* Headings */
 h1,
-h2,
 h3,
 h4,
 h5,
