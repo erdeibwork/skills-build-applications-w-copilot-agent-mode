@@ -60,13 +60,13 @@ export default function Workouts() {
   }, []);
 
   return (
-    <div className="card shadow-sm">
+    <div className="card shadow-sm mb-4">
       <div className="card-body">
         <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
-          <h2 className="h4 mb-0">Workouts</h2>
+          <h1 className="h4 mb-0">Workouts</h1>
           <small className="text-muted">
             Endpoint:{' '}
-            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+            <a className="link-primary text-break" href={endpoint} target="_blank" rel="noreferrer">
               {endpoint}
             </a>
           </small>
@@ -74,7 +74,7 @@ export default function Workouts() {
 
         {error ? (
           <div className="alert alert-danger mb-3">
-            Failed to load workouts: <code>{String(error?.message ?? error)}</code>
+            <strong>Failed to load workouts:</strong> <code>{String(error?.message ?? error)}</code>
           </div>
         ) : null}
 
@@ -85,9 +85,7 @@ export default function Workouts() {
             <table className="table table-striped table-hover align-middle mb-0">
               <thead className="table-dark">
                 <tr>
-                  <th scope="col" style={{ width: '6rem' }}>
-                    ID
-                  </th>
+                  <th scope="col" style={{ width: '6rem' }}>ID</th>
                   <th scope="col">Name</th>
                   <th scope="col">Description</th>
                 </tr>

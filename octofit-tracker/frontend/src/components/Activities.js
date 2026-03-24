@@ -60,13 +60,13 @@ export default function Activities() {
   }, []);
 
   return (
-    <div className="card shadow-sm">
+    <div className="card shadow-sm mb-4">
       <div className="card-body">
         <div className="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
-          <h2 className="h4 mb-0">Activities</h2>
+          <h1 className="h4 mb-0">Activities</h1>
           <small className="text-muted">
             Endpoint:{' '}
-            <a className="link-secondary" href={endpoint} target="_blank" rel="noreferrer">
+            <a className="link-primary text-break" href={endpoint} target="_blank" rel="noreferrer">
               {endpoint}
             </a>
           </small>
@@ -74,7 +74,7 @@ export default function Activities() {
 
         {error ? (
           <div className="alert alert-danger mb-3">
-            Failed to load activities: <code>{String(error?.message ?? error)}</code>
+            <strong>Failed to load activities:</strong> <code>{String(error?.message ?? error)}</code>
           </div>
         ) : null}
 
@@ -85,18 +85,12 @@ export default function Activities() {
             <table className="table table-striped table-hover align-middle mb-0">
               <thead className="table-dark">
                 <tr>
-                  <th scope="col" style={{ width: '6rem' }}>
-                    ID
-                  </th>
+                  <th scope="col" style={{ width: '6rem' }}>ID</th>
                   <th scope="col">User</th>
                   <th scope="col">Team</th>
                   <th scope="col">Type</th>
-                  <th scope="col" className="text-end">
-                    Duration (min)
-                  </th>
-                  <th scope="col" className="text-end">
-                    Distance (km)
-                  </th>
+                  <th scope="col" className="text-end">Duration (min)</th>
+                  <th scope="col" className="text-end">Distance (km)</th>
                   <th scope="col">Timestamp</th>
                 </tr>
               </thead>
