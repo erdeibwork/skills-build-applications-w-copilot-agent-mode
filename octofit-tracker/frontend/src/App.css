@@ -1,4 +1,5 @@
 
+:root {
   --octofit-link-hover: #6c63ff;
   --octofit-table-header: #232946;
   --octofit-table-row: #e0f0ff;
@@ -10,15 +11,6 @@
   --octofit-navbar-link: #f4faff;
   --octofit-navbar-link-active: #00bfae;
   --octofit-navbar-link-hover: #e0f0ff;
-
-h1,
-h3,
-h4,
-h5,
-  color: var(--octofit-heading);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 2px #e0f0ff44;
 }
 
 /* Links */
